@@ -18,8 +18,7 @@ class TimerDisplay extends React.Component {
                     <BoxTemplate display={this.props.secondDisplay} />
                 </div>
                 <div className="box-3">
-                    <h3>Box Three</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                   <BoxTemplate display={this.props.thirdDisplay} />
                 </div>
             </div>
         )

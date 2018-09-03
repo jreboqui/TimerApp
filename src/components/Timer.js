@@ -9,6 +9,7 @@ class Timer extends React.Component
 
         this.state = {
             secondBox: false,
+            thirdBox: false,
             // currentTime: moment.duration(25, 'minutes'),
             // baseTime: moment.duration(25, 'minutes'),
             // timerState: timerStates.NOT_SET,
@@ -27,7 +28,7 @@ class Timer extends React.Component
         return(
             <div> 
                 <TimerHeader />
-                <TimerDisplay secondDisplay={this.state.secondBox}/>
+                <TimerDisplay secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}/>
             </div>
         )
     }
