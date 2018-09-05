@@ -15,7 +15,9 @@ class Timer extends React.Component
             // timerState: timerStates.NOT_SET,
             // timer: null
         };
-
+        
+        this.handleSecondDisplay = this.handleSecondDisplay.bind(this);
+        this.handleThirdDisplay = this.handleThirdDisplay.bind(this);
         // this.setBaseTime = this.setBaseTime.bind(this);
         // this.startTimer = this.startTimer.bind(this);
         // this.reduceTimer = this.reduceTimer.bind(this);
@@ -23,12 +25,25 @@ class Timer extends React.Component
         // this.resetTimer = this.resetTimer.bind(this);
 
     }
+
+    handleSecondDisplay(){
+        this.setState({
+            secondBox: true,
+        });
+    }
+
+    handleThirdDisplay(){
+        this.setState({
+            thirdBox: true,
+        });
+    }
     render ()
     {
         return(
             <div> 
                 <TimerHeader />
-                <TimerDisplay secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}/>
+                <TimerDisplay secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}
+                    handleSecondDisplay={this.handleSecondDisplay} handleThirdDisplay={this.handleThirdDisplay}/>
             </div>
         )
     }
