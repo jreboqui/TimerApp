@@ -2,18 +2,26 @@ import React from 'react';
 
 import TimerHeader from './TimerHeader';
 import TimerDisplay from './TimerDisplay';
+import * as timerStates from '../timerStates';
+import moment from 'moment';
+
 class Timer extends React.Component
 {
     constructor() {
         super();
 
         this.state = {
+            objectA: {
+                firstBox: true,
+                currentTime: moment.duration(25, 'minutes'),
+                baseTime: moment.duration(25, 'minutes'),
+                timerState: timerStates.NOT_SET,
+                timer: null,
+                currentNumber: 123
+            },
             secondBox: false,
             thirdBox: false,
-            // currentTime: moment.duration(25, 'minutes'),
-            // baseTime: moment.duration(25, 'minutes'),
-            // timerState: timerStates.NOT_SET,
-            // timer: null
+            
         };
         
         this.handleSecondDisplay = this.handleSecondDisplay.bind(this);
@@ -42,7 +50,7 @@ class Timer extends React.Component
         return(
             <div> 
                 <TimerHeader />
-                <TimerDisplay secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}
+                <TimerDisplay props1={this.state.objectA} secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}
                     handleSecondDisplay={this.handleSecondDisplay} handleThirdDisplay={this.handleThirdDisplay}/>
             </div>
         )
