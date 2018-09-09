@@ -12,13 +12,14 @@ class Timer extends React.Component
 
         this.state = {
             objectA: {
-                firstBox: true,
+                
                 currentTime: moment.duration(25, 'minutes'),
                 baseTime: moment.duration(25, 'minutes'),
                 timerState: timerStates.NOT_SET,
                 timer: null,
                 currentNumber: 123
             },
+            firstBox: true,
             secondBox: false,
             thirdBox: false,
             
@@ -50,7 +51,7 @@ class Timer extends React.Component
         return(
             <div> 
                 <TimerHeader />
-                <TimerDisplay props1={this.state.objectA} secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}
+                <TimerDisplay props1={this.state.objectA} firstDisplay={this.state.firstBox} secondDisplay={this.state.secondBox} thirdDisplay={this.state.thirdBox}
                     handleSecondDisplay={this.handleSecondDisplay} handleThirdDisplay={this.handleThirdDisplay}/>
             </div>
         )
