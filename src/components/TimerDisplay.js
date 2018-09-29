@@ -1,17 +1,12 @@
 import React from 'react';
 
 import BoxTemplate from './BoxTemplate';
-import { Row, Col } from 'react-bootstrap';
+import TimerButton from './TimerButton';
 import * as timerStates from '../timerStates';
 import moment from 'moment';
 import './TimerDisplay.css';
 import './BoxTemplate.css';
 
-const leftPad = (val) => {
-    if (val < 10) return `0${val}`;
-
-    return `${val}`;
-}
 
 
 class TimerDisplay extends React.Component {
@@ -20,15 +15,21 @@ class TimerDisplay extends React.Component {
 
         this.state = { 
             currentID: '1',
-            objectA: {abc: '123',
+            timerStateA: timerStates.NOT_SET,
+            currentTimeA: moment.duration(25, 'minutes'),
+            baseTimeA: moment.duration(25, 'minutes'),
+            timerA: null,
+            displayA: true,
+            objectA: {abc: '1',
                     currentTime: moment.duration(25, 'minutes'),
                     baseTime: moment.duration(25, 'minutes'),
                     timerState: timerStates.NOT_SET,
                     timer: null,
+                    display: true
                     },
             objectB: {
                 currentID: '2',
-                abc: '123',
+                abc: '2',
                 currentTime: moment.duration(10, 'minutes'),
                 baseTime: moment.duration(25, 'minutes'),
                 timerState: timerStates.NOT_SET,
@@ -37,7 +38,7 @@ class TimerDisplay extends React.Component {
             },
             objectC: {
                 currentID: '3',
-                abc: '123',
+                abc: '3',
                 currentTime: moment.duration(5, 'minutes'),
                 baseTime: moment.duration(25, 'minutes'),
                 timerState: timerStates.NOT_SET,
@@ -45,15 +46,77 @@ class TimerDisplay extends React.Component {
                 
             },
         };
+
+        this.startTimerA = this.startTimerA.bind(this);
+        this.reduceTimerA = this.reduceTimerA.bind(this);
     }
+
+    startTimerA() {
+        console.log("I called startTimer");
+   
+        this.setState({
+            timerStateA: timerStates.RUNNING,
+            timerA: setInterval(this.reduceTimerA(), 1000)
+        })
+        
+        
+    }
+
+    stopTimer(){
+        if (this.state.timer) {
+            clearInterval(this.state.timer);
+        }
+
+        this.setState({
+            timerState: timerStates.NOT_SET,
+            timer: null,
+            currentTime: moment.duration(this.state.baseTime)
+        })
+    }
+
+    reduceTimerA(){
+        console.log('Reduce timer was called');
+        if (this.state.currentTimeA.get('hours') === 0
+            && this.state.currentTimeA.get('minutes') === 0
+            && this.state.currentTimeA.get('seconds') === 0
+        ) {
+            this.resetTimer();
+            return;
+        }
+        
+        const newTime = moment.duration(this.state.currentTimeA);
+        newTime.subtract(1, 'second');
+
+        this.setState({
+            currentTimeA: newTime
+        })
+    }
+
+    resetTimer(){
+        if (this.state.timer) {
+            clearInterval(this.state.timer);
+        }
+
+        this.setState({
+            timerState: timerStates.COMPLETE,
+            timer: null,
+        })
+    }
+
     render(){
         console.log(this.props);    
 
         return (
             <div className="container-1">
-                <div className="box-1">
-                   
-                    <Row className="show-grid">
+                <div className="box-1"> 
+                <BoxTemplate currentID = {this.state.objectA.currentID} 
+                                currentTime = {this.state.currentTimeA}
+                                display = {this.state.displayA}
+                                />
+                <TimerButton currentID={this.state.currentID} startTimer={this.startTimerA}
+                 stopTimer={this.stopTimer} resetTimer={this.resetTimer}
+                 timerState={this.state.timerStateA} />
+                    {/* <Row className="show-grid">
                         <Col className="show-grid" xs={12} md={12}>
                             <div className="text-primary">
                                 
@@ -63,7 +126,7 @@ class TimerDisplay extends React.Component {
                                     </h2>
                             </div>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </div>
                 <div className="box-2">
                     <BoxTemplate currentID = {this.state.objectB.currentID} 

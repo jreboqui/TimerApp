@@ -37,7 +37,7 @@ class BoxTemplate extends React.Component {
             <h1>It's false</h1>
             <h2>currentId is {`${this.props.currentID}`}</h2>
             
-            <button className="plus-button plus-button--large" onClick={this.props.handleDisplay}></button>
+            <button className="plus-button plus-button--large" id={this.props.currentID} onClick={this.props.handleDisplay}></button>
             </div>
         )
     }
